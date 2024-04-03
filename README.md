@@ -14,8 +14,8 @@
 
 |Bangkit ID|Name|Learning Path|University|Contact|
 |-----|-----|-----|-----|-----|
-|M0521004|Aditia Prasetya Nugraha|Cloud Computing|STMIK Sinar Nusantara|[Github](https://github.com/Adztrz) 
-|M0521068|Salomo Polanco |Cloud Computing|Sebelas Maret University|[Github](https://github.com/salomopm) 
-|M0521077|Tri Yulianto|Machine Learning|Sebelas Maret University|[Github](https://github.com/tri3yul) 
-|M0521079|Wahyu Ariyadi|Machine Learning|University of Indonesia|[Github](https://github.com/Void071202) 
-|M0521083|Andreas Domenico Sitomorang |Machine Learning|Sebelas Maret University|[Github](https://github.com/Dre-do) 
+|M0521004|Aditia Prasetya Nugraha|[Github](https://github.com/Adztrz) 
+|M0521068|Salomo Polanco|[Github](https://github.com/salomopm) 
+|M0521077|Tri Yulianto|[Github](https://github.com/tri3yul) 
+|M0521079|Wahyu Ariyadi|[Github](https://github.com/Void071202) 
+|M0521083|Andreas Domenico Sitomorang|[Github](https://github.com/Dre-do) 
