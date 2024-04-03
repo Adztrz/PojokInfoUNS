@@ -13,7 +13,7 @@
 <h2> Project Team Members : </h2>
 
 |Bangkit ID|Name|Contact|
-|-----|-----|-----|-----|-----|
+|-----|-----|-----|
 |M0521004|Aditia Prasetya Nugraha|[Github](https://github.com/Adztrz) 
 |M0521068|Salomo Polanco|[Github](https://github.com/salomopm) 
 |M0521077|Tri Yulianto|[Github](https://github.com/tri3yul) 
