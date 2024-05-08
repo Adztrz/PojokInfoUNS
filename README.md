@@ -1,6 +1,6 @@
 # Pojok Info UNS
 
-# Kelompok 2 PPL Semester 6 Informatika UNS 2024
+## Kelompok 2 PPL Semester 6 Informatika UNS 2024
 | Nama                          | Keanggotaan                  | NIM         |
 |  --------                     |  -------                     |  -----------|
 | Aditia Prasetya Nugraha       | Dev Team                     | M0521004    |
@@ -9,13 +9,13 @@
 | Wahyu Ariyadi                 | Product Owner & Dev Team     | M0521079    |
 | Andreas Domenico Situmorang   | Dev Team                     | M0521083    |
 
-# Documentation
+## Documentation
  
 - [Design Figma - Pojok Info UNS](https://www.figma.com/file/xdODLSiAlw35saBiaBK3B0/Pojok-Info-UNS?type=design&node-id=0%3A1&mode=design&t=41hE2vs4QKIHBgZY-1)
 
 - [System Request - Pojok Info UNS](https://docs.google.com/document/d/1J0F5CSvTL8rHQTPoXFfsizFsQMN3MAoIAp45zEfgLew/edit#heading=h.zh5gkavq1ml8)
 
-# About Laravel
+## About Laravel
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
