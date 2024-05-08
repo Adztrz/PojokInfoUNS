@@ -1,3 +1,20 @@
+# Pojok Info UNS
+
+# Kelompok 2 PPL Semester 6 Informatika UNS 2024
+    | Nama                          | Keanggotaan                  | NIM         |
+    | :--------                     | :-------                     | :-----------|
+    | Aditia Prasetya Nugraha       | Dev Team                     | M0521004    |
+    | Salomo Polanco                | Dev Team                     | M0521068    |
+    | Tri Yulianto                  | Scrum Master & Dev Team      | M0521077    |
+    | Wahyu Ariyadi                 | Product Owner & Dev Team     | M0521079    |
+    | Andreas Domenico Situmorang   | Dev Team                     | M0521083    |
+
+# Documentation
+    - [Design Figma - Pojok Info UNS](https://www.figma.com/file/xdODLSiAlw35saBiaBK3B0/Pojok-Info-UNS?type=design&node-id=0%3A1&mode=design&t=41hE2vs4QKIHBgZY-1)
+    - [System Request - Pojok Info UNS](https://docs.google.com/document/d/1J0F5CSvTL8rHQTPoXFfsizFsQMN3MAoIAp45zEfgLew/edit#heading=h.zh5gkavq1ml8)
+
+# About Laravel
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
@@ -6,8 +23,6 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
-
-## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
