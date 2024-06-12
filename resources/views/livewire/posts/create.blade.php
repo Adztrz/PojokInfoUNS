@@ -2,6 +2,7 @@
     <div class=" flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
     <div class="w-11/12 lg:w-full md:w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden rounded-lg mb-12">
          <x-jet-validation-errors class="mb-4" />
+         <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
 
         <form method="POST" wire:submit.prevent="submit" enctype="multipart/form-data">
             @csrf
@@ -13,8 +14,15 @@
             
             <div class="mt-4">
                 <x-jet-label for="body" value="{{ __('Description') }}" />
-               <textarea rows="5" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow" wire:model.lazy="body"> </textarea>
-            </div>
+               <div rows="5" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow" wire:model.lazy="body" id="editor"> </div>
+                    <script>
+                        ClassicEditor
+                            .create( document.querySelector( '#editor' ) )
+                            .catch( error => {
+                                console.error( error );
+                            } );
+                    </script>
+                </div>
 
             @if($file)
             <div class="mt-4">
