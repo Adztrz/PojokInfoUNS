@@ -57,6 +57,8 @@
 
         @section('scripts')
          <script src='https://cdn.plyr.io/3.4.6/plyr.js'></script>
+                  <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+
 		 <script>
 			document.addEventListener('DOMContentLoaded', () => {
   // This is the bare minimum JavaScript. You can opt to pass no arguments to setup.
