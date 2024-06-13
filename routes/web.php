@@ -31,4 +31,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('/feeds', "App\Http\Controllers\PostController@followers")->name('feeds');
     Route::resource('/manage/users', "App\Http\Controllers\UserController")->except(['create', 'show', 'store'])->names('users');
     Route::get('/{username}', "App\Http\Controllers\ProfileController@show")->name('profile');
+    Route::delete('/manage/users', [UserController::class, 'destroy'])->name('destroy');
+
 });

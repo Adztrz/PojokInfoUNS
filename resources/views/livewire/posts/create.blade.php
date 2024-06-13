@@ -14,16 +14,28 @@
             
             <div class="mt-4">
                 <x-jet-label for="body" value="{{ __('Description') }}" />
-               <div rows="5" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow" wire:model.lazy="body" id="editor"> </div>
-                    <script>
-                        ClassicEditor
-                            .create( document.querySelector( '#editor' ) )
-                            .catch( error => {
-                                console.error( error );
-                            } );
-                    </script>
+                <div wire:ignore>
+                    <textarea id="editor" rows="5" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow"></textarea>
                 </div>
+                <script>
+                    document.addEventListener('livewire:load', function () {
+                        ClassicEditor
+                            .create(document.querySelector('#editor'))
+                            .then(editor => {
+                                editor.model.document.on('change:data', () => {
+                                    Livewire.emit('editorUpdated', editor.getData());
+                                });
+                            })
+                            .catch(error => {
+                                console.error(error);
+                            });
 
+                        Livewire.on('editorUpdated', data => {
+                            @this.set('body', data);
+                        });
+                    });
+                </script>
+            </div>
             @if($file)
             <div class="mt-4">
                 <x-jet-label value="{{ __('Preview :') }}" />

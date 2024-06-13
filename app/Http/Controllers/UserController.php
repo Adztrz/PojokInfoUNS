@@ -32,4 +32,19 @@ class UserController extends Controller
 
         return view('users.edit', compact('user'));
     }
+
+    public function destroy(User $user)
+    {
+        $this->authorize('viewAny', auth()->user());
+    
+        try {
+            $user->delete();
+        } catch (QueryException $e) {
+            // Handle the exception, e.g., show an error message
+            return back()->withError('Cannot delete this user due to related records.');
+        }
+    
+        // Redirect somewhere after deletion
+        return redirect()->route('users.index');
+    }
 }

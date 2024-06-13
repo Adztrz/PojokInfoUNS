@@ -1,6 +1,11 @@
 <div class="flex flex-col mx-2 my-5 md:mx-6 md:my-12 lg:my-12 lg:w-2/5 lg:mx-auto">
             <div class="bg-white shadow-md  rounded-3xl p-4">
                 <div class="flex-none">
+
+
+
+
+
                     <div class="h-full w-full  mb-3 filter" wire:offline.class="grayscale">
                     	@foreach($post->postImages as $media)
 	                    @if($media->is_image && preg_match('/^.*\.(png|jpg|gif)$/i', $media->path))
@@ -57,8 +62,18 @@
 
                             <h2 class="flex-auto text-lg font-medium">{{ $post->title }}</h2>
                         </div>
-
-                          <p class="mt-3">{{ $post->body }}</p>
+                        <style>
+    /* Style to limit width and handle overflow */
+    .post-content {
+        /* Adjust max-width as needed */
+        max-width: 100%; /* Example: You can use 'max-width: 100%;' or specify a pixel value */
+        overflow-wrap: break-word;
+    }
+</style>
+                        <div class="post-content">
+                            <p class="mt-3">{!! $post->body !!}</p>
+                        </div>
+                          
 
                         <div class="flex py-4  text-sm text-gray-600">
                             <div class="flex-1 inline-flex items-center">
