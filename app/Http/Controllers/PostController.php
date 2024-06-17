@@ -21,6 +21,10 @@ class PostController extends Controller
         return view('post.manage');
     }
 
+    public function manageIndex(): View|Factory|Application
+    {
+        return view('post.managepost');
+    }
     /**
      * Display a listing of the resource.
      *

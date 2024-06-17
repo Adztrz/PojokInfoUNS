@@ -11,7 +11,7 @@
 	
 </style>
 
-    <livewire:posts.view :type="'me'" />
+    <livewire:validation :type="'me'" />
     
 </div>
             

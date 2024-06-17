@@ -32,5 +32,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::resource('/manage/users', "App\Http\Controllers\UserController")->except(['create', 'show', 'store'])->names('users');
     Route::get('/{username}', "App\Http\Controllers\ProfileController@show")->name('profile');
     Route::delete('/manage/users', [UserController::class, 'destroy'])->name('destroy');
+    Route::resource('/manage/posts', "App\Http\Controllers\PostController")->names('validation');
 
 });

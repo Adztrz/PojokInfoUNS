@@ -32,6 +32,10 @@
                     <x-jet-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.create')">
 		                {{ __('Manage Users') }}
 		            </x-jet-nav-link>
+
+                    <x-jet-nav-link href="{{ route('validation.index') }}" :active="request()->routeIs('validation.index')">
+		                {{ __('Manage Posts') }}
+		            </x-jet-nav-link>
 					@endcan
                 </div>
             </div>
