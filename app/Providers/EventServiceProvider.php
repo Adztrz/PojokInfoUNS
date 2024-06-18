@@ -9,7 +9,13 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use App\Listeners\LogUserLogin;
 use App\Listeners\LogUserRegistration;
 use App\Listeners\LogPostCreated;
+use App\Listeners\LogUserLogout;
+// use App\Listeners\LogPostUpdated;
+// use App\Listeners\LogPostDeleted;
+// use App\Events\PostUpdated;
+// use App\Events\PostDeleted;
 use App\Events\PostCreated;
+use App\Events\UserLoggedOut;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -21,10 +27,17 @@ class EventServiceProvider extends ServiceProvider
             LogUserRegistration::class,
             SendEmailVerificationNotification::class,
         ],
+        Logout::class => [
+            LogUserLogout::class,
+        ],
         PostCreated::class => [
             LogPostCreated::class,
         ],
+        UserLoggedOut::class => [
+            LogUserLogout::class,
+        ],
     ];
+
 
     public function boot()
     {

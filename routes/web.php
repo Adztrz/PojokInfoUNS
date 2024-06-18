@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,4 +44,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::resource('/manage/users', UserController::class)->except(['create', 'show', 'store'])->names('users');
     Route::get('/{username}', [ProfileController::class, 'show'])->name('profile');
     Route::delete('/manage/users', [UserController::class, 'destroy'])->name('destroy');
+    Route::post('/logout', [App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'destroy'])
+    ->name('logout');
 });

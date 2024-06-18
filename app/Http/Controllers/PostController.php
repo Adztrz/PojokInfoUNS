@@ -29,10 +29,11 @@ class PostController extends Controller
             'title' => $request->input('title'),
             'content' => $request->input('content'),
             'user_id' => auth()->id(),
+            
         ]);
 
         event(new PostCreated($post));
-
+        Log::channel('user_actions')->info('PostCreated event fired'); //Debug
         Log::channel('user_actions')->info('Post Created', [
             'post_id' => $post->id,
             'user_id' => auth()->id(),

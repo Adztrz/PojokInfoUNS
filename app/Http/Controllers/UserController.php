@@ -7,6 +7,10 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Events\UserLoggedOut; // Import the UserLoggedOut class
+use Illuminate\Database\QueryException; // Import the QueryException class
 
 class UserController extends Controller
 {
@@ -38,7 +42,7 @@ class UserController extends Controller
         $this->authorize('viewAny', auth()->user());
     
         try {
-            $user->delete();
+            } catch (QueryException $e) {
         } catch (QueryException $e) {
             // Handle the exception, e.g., show an error message
             return back()->withError('Cannot delete this user due to related records.');
@@ -46,5 +50,20 @@ class UserController extends Controller
     
         // Redirect somewhere after deletion
         return redirect()->route('users.index');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $user = auth()->user();
+        if ($user) {
+            event(new UserLoggedOut($user->id));
+        }
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 }
