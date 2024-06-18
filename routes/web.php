@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Log;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,15 +26,21 @@ Route::get('/favicon.ico', function () {
     return redirect(route('home'));
 });
 
+// Test logging route
+Route::get('/test-log', function () {
+    Log::channel('user_actions')->info('This is a test log message');
+    return 'Log test completed';
+});
+
+// Authenticated routes
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('/home', function () {
         return view('home');
     })->name('home');
 
-    Route::resource('/posts', "App\Http\Controllers\PostController")->names('posts');
-    Route::get('/feeds', "App\Http\Controllers\PostController@followers")->name('feeds');
-    Route::resource('/manage/users', "App\Http\Controllers\UserController")->except(['create', 'show', 'store'])->names('users');
-    Route::get('/{username}', "App\Http\Controllers\ProfileController@show")->name('profile');
+    Route::resource('/posts', PostController::class)->names('posts');
+    Route::get('/feeds', [PostController::class, 'followers'])->name('feeds');
+    Route::resource('/manage/users', UserController::class)->except(['create', 'show', 'store'])->names('users');
+    Route::get('/{username}', [ProfileController::class, 'show'])->name('profile');
     Route::delete('/manage/users', [UserController::class, 'destroy'])->name('destroy');
-
 });
