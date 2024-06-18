@@ -8,6 +8,8 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
@@ -20,13 +22,6 @@ class PostController extends Controller
     {
         return view('post.manage');
     }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     */
-    
 
     /**
      * Show the form for creating a new resource.
@@ -43,10 +38,26 @@ class PostController extends Controller
      *
      * @param CreatePostRequest $request
      *
-     * @return void
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(CreatePostRequest $request): void
+    public function store(CreatePostRequest $request)
     {
+        // Validate and create the post
+        $post = Post::create([
+            'title' => $request->input('title'),
+            'content' => $request->input('content'),
+            'user_id' => auth()->id(), // assuming posts are associated with a user
+        ]);
+
+        // Log the creation of the post
+        Log::channel('user_actions')->info('Post Created', [
+            'post_id' => $post->id,
+            'user_id' => auth()->id(),
+            'title' => $post->title,
+        ]);
+
+        // Redirect back with success message
+        return redirect()->back()->with('success', 'Post created successfully!');
     }
 
     /**
@@ -58,6 +69,7 @@ class PostController extends Controller
      */
     public function show(Post $post): void
     {
+        // You can add your logic here if needed
     }
 
     /**
@@ -78,10 +90,28 @@ class PostController extends Controller
      * @param Request $request
      * @param Post $post
      *
-     * @return void
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Post $post): void
+    public function update(Request $request, Post $post)
     {
+        // Validate the request
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+        ]);
+
+        // Update the post
+        $post->update($validated);
+
+        // Log the update
+        Log::channel('user_actions')->info('Post Updated', [
+            'post_id' => $post->id,
+            'user_id' => auth()->id(),
+            'title' => $post->title,
+        ]);
+
+        // Redirect back with success message
+        return redirect()->back()->with('success', 'Post updated successfully!');
     }
 
     /**
@@ -89,9 +119,20 @@ class PostController extends Controller
      *
      * @param Post $post
      *
-     * @return void
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Post $post): void
+    public function destroy(Post $post)
     {
+        // Delete the post
+        $post->delete();
+
+        // Log the deletion
+        Log::channel('user_actions')->info('Post Deleted', [
+            'post_id' => $post->id,
+            'user_id' => auth()->id(),
+        ]);
+
+        // Redirect back with success message
+        return redirect()->back()->with('success', 'Post deleted successfully!');
     }
 }
