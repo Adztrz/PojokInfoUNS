@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Validation\Validate;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\PostController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +36,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::resource('/manage/users', "App\Http\Controllers\UserController")->except(['create', 'show', 'store'])->names('users');
     Route::get('/{username}', "App\Http\Controllers\ProfileController@show")->name('profile');
     Route::delete('/manage/users', [UserController::class, 'destroy'])->name('destroy');
-    Route::resource('/manage/posts', "App\Http\Controllers\PostController")->names('validation');
+    Route::get('/manage/posts', Validate::class)->name('admin.validate-posts');
+    Route::post('/posts/{post}/status', [PostController::class, 'updateStatus'])->name('posts.updateStatus');
 
 });

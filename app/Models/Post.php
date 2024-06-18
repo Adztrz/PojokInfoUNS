@@ -17,12 +17,14 @@ class Post extends Model
      *
      * @var array
      */
+    
     protected $fillable = [
         'user_id',
         'title',
         'body',
     ];
-
+    protected $with = ['postImages', 'user'];
+    
     public function postImages()
     {
         return $this->hasMany(Media::class);

@@ -28,12 +28,12 @@
                         {{ __('My Posts') }}
                     </x-jet-nav-link>
 
-                    @can('viewAny', auth()->user())
-                    <x-jet-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.create')">
+                    @can('viewAny', App\Models\User::class)
+                    <x-jet-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.index')">
 		                {{ __('Manage Users') }}
 		            </x-jet-nav-link>
 
-                    <x-jet-nav-link href="{{ route('validation.index') }}" :active="request()->routeIs('validation.index')">
+                    <x-jet-nav-link href="{{ route('admin.validate-posts') }}" :active="request()->routeIs('admin.validate-posts')">
 		                {{ __('Manage Posts') }}
 		            </x-jet-nav-link>
 					@endcan
@@ -164,21 +164,25 @@
                 {{ __('Home') }}
             </x-jet-responsive-nav-link>
 
-            <x-jet-responsive-nav-link href="{{ route('feeds') }}" :active="request()->routeIs('feeds')">
-                {{ __('Feeds') }}
+            <x-jet-responsive-nav-link href="#" :active="request()->routeIs('feeds')">
+                {{ __('Search') }}
             </x-jet-responsive-nav-link>
 
             <x-jet-responsive-nav-link href="{{ route('posts.create') }}" :active="request()->routeIs('posts.create')">
-                {{ __('Create post') }}
+                {{ __('Create Post') }}
             </x-jet-responsive-nav-link>
 
-            <x-jet-responsive-nav-link href="{{ route('posts.index') }}">
+            <x-jet-responsive-nav-link href="{{ route('posts.index') }}" :active="request()->routeIs('posts.index')">
                 {{ __('My Posts') }}
             </x-jet-responsive-nav-link>
 
-            @can('viewAny', auth()->user())
-            <x-jet-responsive-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.create')">
+            @can('viewAny', App\Models\User::class)
+            <x-jet-responsive-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.index')">
                 {{ __('Manage Users') }}
+            </x-jet-responsive-nav-link>
+
+            <x-jet-responsive-nav-link href="{{ route('admin.validate-posts') }}" :active="request()->routeIs('admin.validate-posts')">
+                {{ __('Manage Posts') }}
             </x-jet-responsive-nav-link>
             @endcan
         </div>

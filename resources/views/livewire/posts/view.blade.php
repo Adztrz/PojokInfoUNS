@@ -22,9 +22,10 @@
 </div>
 @endif
 	@forelse($posts as $post)
-
-      @include('elements.post')
-
+  
+  @if($post->isValid)
+            @include('elements.post')
+        @endif
     @empty
         <div class="flex flex-col mx-2 my-12 md:mx-32 lg:my-28 lg:mx-60">
             <div class="bg-white shadow-md rounded-3xl p-4">
@@ -57,7 +58,7 @@
 
         @section('scripts')
          <script src='https://cdn.plyr.io/3.4.6/plyr.js'></script>
-                  <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+          <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
 
 		 <script>
 			document.addEventListener('DOMContentLoaded', () => {

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\CreatePostRequest;
 use App\Models\Post;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+
 
 class PostController extends Controller
 {
@@ -19,6 +21,15 @@ class PostController extends Controller
     public function index(): View|Factory|Application
     {
         return view('post.manage');
+        
+    }
+
+    public function updateStatus(Request $request, Post $post): RedirectResponse
+    {
+        $post->isValid = $request->input('isValid');
+        $post->save();
+
+        return redirect()->route('posts.index')->with('success', 'Post status updated successfully.');
     }
 
     public function manageIndex(): View|Factory|Application
@@ -95,7 +106,18 @@ class PostController extends Controller
      *
      * @return void
      */
-    public function destroy(Post $post): void
+    public function destroy(Post $post)
     {
+        // $this->authorize('viewAny', auth()->user());
+    
+        try {
+            $post->delete();
+        } catch (QueryException $e) {
+            // Handle the exception, e.g., show an error message
+            return back()->withError('Cannot delete this user due to related records.');
+        }
+    
+        // Redirect somewhere after deletion
+        return redirect()->route('admin.validate-posts');
     }
 }
