@@ -24,6 +24,7 @@ class PostController extends Controller
         
     }
 
+    
     public function updateStatus(Request $request, Post $post): RedirectResponse
     {
         $post->isValid = $request->input('isValid');
@@ -84,7 +85,9 @@ class PostController extends Controller
      */
     public function edit(Post $post): View|Factory|Application
     {
-        return view('post.edit', ['post' => $post]);
+        // $this->authorize('viewAny', auth()->user());
+
+        return view('livewire.validation.edit', compact('post'));
     }
 
     /**
@@ -95,8 +98,17 @@ class PostController extends Controller
      *
      * @return void
      */
-    public function update(Request $request, Post $post): void
+    public function update(Request $request, Post $post)
     {
+        $request->validate([
+            'title' => 'required|max:255',
+            'body' => 'required',
+            // Add any other validation rules
+        ]);
+
+        $post->update($request->all());
+
+        return redirect()->route('posts.index')->with('success', 'Post updated successfully');
     }
 
     /**

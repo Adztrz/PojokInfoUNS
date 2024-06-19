@@ -6,24 +6,24 @@
 
 
 
-                    <div class="h-full w-full  mb-3 filter" wire:offline.class="grayscale">
-                    	@foreach($post->postImages as $media)
-	                    @if($media->is_image && preg_match('/^.*\.(png|jpg|gif)$/i', $media->path))
-                        <img src="{{ url('/storage/' . $media->path) }}"
-                            alt="Social" class="w-full object-scale-down md:object-cover lg:object-cover rounded-2xl" onContextMenu="return false;">
-                        @elseif(!$media->is_image && preg_match('/^.*\.(mp4|3gp)$/i', $media->path))
-	                     <div class="container">
-						<video controls crossorigin playsinline oncontextmenu="return false;" controlsList="nodownload" class="rounded-lg filter" id="player_{{ $post->id }}">
-			                <!-- Video files -->
-			                <source src="{{ url('/storage/' . $media->path) }}" type="video/mp4" size="576">
+                        <div class="h-full w-full  mb-3 filter" wire:offline.class="grayscale">
+                            @foreach($post->postImages as $media)
+                            @if($media->is_image && preg_match('/^.*\.(png|jpg|gif)$/i', $media->path))
+                            <img src="{{ url('/storage/' . $media->path) }}"
+                                alt="Social" class="w-full object-scale-down md:object-cover lg:object-cover rounded-2xl" onContextMenu="return false;">
+                            @elseif(!$media->is_image && preg_match('/^.*\.(mp4|3gp)$/i', $media->path))
+                            <div class="container">
+                            <video controls crossorigin playsinline oncontextmenu="return false;" controlsList="nodownload" class="rounded-lg filter" id="player_{{ $post->id }}">
+                                <!-- Video files -->
+                                <source src="{{ url('/storage/' . $media->path) }}" type="video/mp4" size="576">
 
-			                <!-- Fallback for browsers that don't support the <video> element -->
-			                <a href="{{ url('/storage/' . $media->path) }}" download>Download</a>
-			            </video>
-						</div>
-                        @endif
-                        @endforeach
-                    </div>
+                                <!-- Fallback for browsers that don't support the <video> element -->
+                                <a href="{{ url('/storage/' . $media->path) }}" download>Download</a>
+                            </video>
+                            </div>
+                            @endif
+                            @endforeach
+                        </div>
                     <div class="flex-auto ml-3 justify-evenly py-2" wire:offline.class="text-gray-400">
                     @can('delete', $post)
                     	<button
@@ -68,6 +68,13 @@
         /* Adjust max-width as needed */
         max-width: 100%; /* Example: You can use 'max-width: 100%;' or specify a pixel value */
         overflow-wrap: break-word;
+        white-space: pre-wrap; /* CSS3 */
+    white-space: -moz-pre-wrap; /* Firefox */
+    white-space: -pre-wrap; /* Opera <7 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* IE */
+    max-width: 550px; /* Adjust the width as needed */
+    overflow-wrap: break-word;
     }
 </style>
                         <div class="post-content">

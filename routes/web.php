@@ -38,5 +38,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::delete('/manage/users', [UserController::class, 'destroy'])->name('destroy');
     Route::get('/manage/posts', Validate::class)->name('admin.validate-posts');
     Route::post('/posts/{post}/status', [PostController::class, 'updateStatus'])->name('posts.updateStatus');
+    // Route::post('/posts/{post}/edit', Edit::class,)->name('admin.edit');
 
 });
