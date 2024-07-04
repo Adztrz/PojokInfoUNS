@@ -2,28 +2,22 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use App\Models\Role;
 use App\Models\User;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
-        $this->call(RoleSeeder::class);
+        // User::factory(10)->create();
 
         User::factory()->create([
-            'name' => 'Admin',
-            'username' => 'admin',
-            'password' => bcrypt('password'), // You should use bcrypt to hash the password
-            'email' => 'admin@gmail.com',
-            'email_verified_at' => null,
-            'role_id' => 2
+            'name' => 'Test User',
+            'email' => 'test@example.com',
         ]);
     }
 }

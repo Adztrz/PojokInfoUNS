@@ -2,25 +2,124 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Controllers\id;
+use App\Http\Resources\PostAttachmentResource;
+use App\Http\Resources\PostResource;
+use App\Http\Resources\UserResource;
+use App\Models\Post;
+use App\Models\PostAttachment;
 use App\Models\User;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class ProfileController extends Controller
 {
-    protected $post;
+    public function index(Request $request, User $user)
+    {
+        $posts = Post::postsForTimeline(Auth::id())
+            ->where('user_id', $user->id)
+            ->paginate(10);
+
+        $posts = PostResource::collection($posts);
+
+        if ($request->wantsJson()) {
+            return $posts;
+        }
+
+        $photos = PostAttachment::query()
+            ->where('mime', 'like', 'image/%')
+            ->where('created_by', $user->id)
+            ->latest()
+            ->get();
+
+        return Inertia::render('Profile/View', [
+            'mustVerifyEmail' => $user instanceof MustVerifyEmail,
+            'status' => session('status'),
+            'success' => session('success'),
+            'user' => new UserResource($user),
+            'posts' => $posts,
+            'photos' => PostAttachmentResource::collection($photos)
+        ]);
+    }
 
     /**
-     * Display the specified resource.
-     *
-     * @param $username
-     * @return Application|Factory|View
+     * Update the user's profile information.
      */
-    public function show($username): View|Factory|Application
+    public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $user = User::withCount(['posts'])->where('username', $username)->firstOrFail();
-        //$this->posts = Post::select('id')->where('user_id', $user->id)->withCount(['likes', 'comments'])->get();
-        return view('profile', compact('user'));
+        $request->user()->fill($request->validated());
+
+        if ($request->user()->isDirty('email')) {
+            $request->user()->email_verified_at = null;
+        }
+
+        $request->user()->save();
+
+        return to_route('profile', $request->user())->with('success', 'Profile updated');
+    }
+
+    /**
+     * Delete the user's account.
+     */
+    public function destroy(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'password' => ['required', 'current_password'],
+        ]);
+
+        $user = $request->user();
+
+        Auth::logout();
+
+        $user->delete();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return Redirect::to('/');
+    }
+
+    public function updateImage(Request $request)
+    {
+        $data = $request->validate([
+            'cover' => ['nullable', 'image'],
+            'avatar' => ['nullable', 'image']
+        ]);
+
+        $user = $request->user();
+
+        $cover = $data['cover'] ?? null;
+        $avatar = $data['avatar'] ?? null;
+
+        $success = '';
+
+        if ($cover) {
+            if ($user->cover_path) {
+                Storage::disk('public')->delete($user->cover_path);
+            }
+            $path = $cover->store('user-'.$user->id, 'public');
+            $user->update(['cover_path' => $path]);
+            $success = 'Cover updated';
+        }
+
+        if ($avatar) {
+            if ($user->avatar_path) {
+                Storage::disk('public')->delete($user->avatar_path);
+            }
+            $path = $avatar->store('user-'.$user->id, 'public');
+            $user->update(['avatar_path' => $path]);
+            $success = 'Avatar updated';
+        }
+
+        // session('succes', 'Cover Updated');
+
+        return back()->with('success', $success);
     }
 }
