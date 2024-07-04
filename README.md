@@ -23,7 +23,7 @@
 
 ## Cara Replikasi App
 
-To replicate this project on your local machine, follow these steps:
+Untuk mereplikasi proyek ini, ikuti langkah-langkah berikut:
 
 1. Clone repositori:
 
